@@ -1,0 +1,19 @@
+﻿extends layout
+
+block content
+  h1 #{title}
+  div(class="well bs-component")
+    form(class="form-horizontal" method="POST")
+      fieldset
+        legend Название места
+        div(class="form-group")          
+          label(for="title" class="col-lg-2 control-label") Название места
+          div(class="col-lg-10")
+            input(type='text' name='title' id='title', placeholder='Место' class='form-control')
+        legend Описание места
+        div(class="form-group")          
+          label(for="description" class="col-lg-2 control-label") Описание места
+          div(class="col-lg-10")
+            textarea(name='description', id='description' class='form-control')
+        button(class="btn btn-default") Отмена
+        button(type="submit" class="btn btn-primary") Добавить

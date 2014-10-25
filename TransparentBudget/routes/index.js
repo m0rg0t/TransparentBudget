@@ -28,6 +28,6 @@ exports.places_map = function (req, res) {
 };
 
 exports.places_add = function(req, res) {
-    res.render('places_add', {});
+    res.render('places_add', { title: "Добавить место", year: new Date().getFullYear(), message: 'Добавление места'});
 }
 
