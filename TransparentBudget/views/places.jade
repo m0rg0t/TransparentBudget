@@ -3,9 +3,18 @@ extends layout
 block content
   h1 #{title}
   each item in places
+    hr
     h2
       a(href='/places/#{item.id}')= item.title
     p
-      =item.description
-    hr
+      !=item.description
+    table(border="0")
+      tr
+        td
+          a(href='/places/#{item.id}#disqus_thread') Comments
+          span &nbsp;
+        td
+          span Explanations:&nbsp;
+            = item.explanations.length
+    
 

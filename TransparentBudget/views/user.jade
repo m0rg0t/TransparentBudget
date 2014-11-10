@@ -1,0 +1,17 @@
+﻿extends layout
+
+block content
+  .row
+    .col-md-12
+      h1 User profile
+      hr
+      span Username: #{profile.username}
+      br
+      span Email: #{profile.email}
+      br
+      span Name: #{profile.name}
+      br
+      br
+      script(src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=#{profile.email}" data-button="donate" data-name="Author support" data-amount="1.00" async)
+      br
+      br

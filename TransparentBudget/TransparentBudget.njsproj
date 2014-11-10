@@ -32,9 +32,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="public\javascripts\jquery.nivo.slider.pack.js" />
     <Compile Include="routes\index.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="public\images\anton1.jpg" />
+    <Content Include="public\images\khristina1.jpg" />
+    <Content Include="public\images\slide1 %281%29.jpg" />
+    <Content Include="public\images\slide1 %282%29.jpg" />
+    <Content Include="public\images\slide1 %283%29.jpg" />
     <Content Include="public\javascripts\bootstrap.js" />
     <Content Include="public\javascripts\bootstrap.min.js" />
     <Content Include="public\javascripts\jquery-1.10.2.intellisense.js" />
@@ -57,9 +63,31 @@
     <Content Include="public\javascripts\jquery-1.10.2.min.map" />
     <Content Include="public\stylesheets\bootstrap.css" />
     <Content Include="public\stylesheets\bootstrap.min.css" />
+    <Content Include="public\stylesheets\nivo-slider.css" />
     <Content Include="public\stylesheets\style.styl" />
+    <Content Include="public\stylesheets\themes\bar\arrows.png" />
+    <Content Include="public\stylesheets\themes\bar\bar.css" />
+    <Content Include="public\stylesheets\themes\bar\bullets.png" />
+    <Content Include="public\stylesheets\themes\bar\loading.gif" />
+    <Content Include="public\stylesheets\themes\dark\arrows.png" />
+    <Content Include="public\stylesheets\themes\dark\bullets.png" />
+    <Content Include="public\stylesheets\themes\dark\dark.css" />
+    <Content Include="public\stylesheets\themes\dark\loading.gif" />
+    <Content Include="public\stylesheets\themes\default\arrows.png" />
+    <Content Include="public\stylesheets\themes\default\bullets.png" />
+    <Content Include="public\stylesheets\themes\default\default.css" />
+    <Content Include="public\stylesheets\themes\default\loading.gif" />
+    <Content Include="public\stylesheets\themes\light\arrows.png" />
+    <Content Include="public\stylesheets\themes\light\bullets.png" />
+    <Content Include="public\stylesheets\themes\light\light.css" />
+    <Content Include="public\stylesheets\themes\light\loading.gif" />
     <Content Include="README.md" />
     <None Include="transparentbudget.pubxml" />
+    <Content Include="views\disqus.html" />
+    <Content Include="views\disqus_count.html" />
+    <Content Include="views\login.jade" />
+    <Content Include="views\place.jade" />
+    <Content Include="views\places_add.jade" />
     <Content Include="views\places_map.jade" />
     <Content Include="views\documents.jade" />
     <Content Include="views\places.jade" />
@@ -68,6 +96,7 @@
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
     <Content Include="views\texts\about_description.html" />
+    <Content Include="views\user.jade" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config" />
     <Content Include="bin\ChangeConfig.ps1" />
@@ -83,6 +112,11 @@
     <Folder Include="public\images\" />
     <Folder Include="public\javascripts\" />
     <Folder Include="public\stylesheets\" />
+    <Folder Include="public\stylesheets\themes\" />
+    <Folder Include="public\stylesheets\themes\bar\" />
+    <Folder Include="public\stylesheets\themes\dark\" />
+    <Folder Include="public\stylesheets\themes\default\" />
+    <Folder Include="public\stylesheets\themes\light\" />
     <Folder Include="routes\" />
     <Folder Include="views\" />
     <Folder Include="views\texts\" />

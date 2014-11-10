@@ -1,0 +1,171 @@
+﻿extends layout
+
+block content
+  h2 #{place.title}
+  hr
+  span 
+    b Адрес: 
+    span #{place.address}
+  br
+  span 
+    b Автор: 
+    span #{place.author}
+  br
+  span 
+    b Рейтинг: 
+    span #{place.rating}
+  br
+  span 
+    b Широта: 
+    span #{place.lat}
+  br
+  span 
+    b Долгота: 
+    span #{place.lon}
+  br
+  -if (result.kpp!=null)
+    span 
+      b КПП: 
+      span #{result.kpp}
+    br
+  -if (result.inn!=null)
+    span 
+      b ИНН: 
+      span #{result.inn}
+    br
+  -if (result.contractsCount!=null)
+    span 
+      b Количество контрактов: 
+      span #{result.contractsCount}
+    br
+  -if (result.contractsCount!=null)
+    span 
+      b Сумма контрактов: 
+      span #{result.contractsSum}
+    br
+  -if (result.regNumber!=null)
+    span 
+      b Регистрационный номер: 
+      span #{result.regNumber}
+    br
+  -if (result.regNumber!=null)
+    span 
+      b Идентификатор: 
+      span #{result.id}
+    br
+  hr
+  br
+
+  .row
+    .col-md-12
+      != place.description
+      //p= JSON.stringify(result)
+      //p= JSON.stringify(contracts)
+  br
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading Карта
+        .panel-body
+          div(id="map" style="width: 100%; height: 400px")
+            - if (typeof(places) != null)
+              != "<script type='text/javascript'>"
+              != "function init1() {"
+              != "init(" + place.lat + ", " + place.lon + ", '"+place.title+"');"
+              != "}"
+              != "</script>"
+            script.
+              ymaps.ready(init1);
+              var myMap, myPlacemark;
+
+              function init(lat, lon, title) {
+                myMap = new ymaps.Map ("map", {
+                  center: [lat, lon],
+                  zoom: 14
+                });   
+                var placemark = new ymaps.Placemark([lat, lon], { content: title, balloonContent: title });
+                myMap.geoObjects.add(placemark); 
+              }        
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading Объяснения
+        .panel-body
+          if place.explanations.length>0
+            each explanation in place.explanations
+              table(style="width: 100%;")
+                tr
+                  td
+                    if explanation.contract===null
+                      span
+                        b Контракт: не указан
+                    else
+                      span
+                        b Контракт
+                        span explanation.contract
+                    br
+                    span
+                      b Author
+                      a(href="/profile/#{explanation.authorId}") 
+                          =explanation.author
+                  td(class="donate")
+                    //button(class="paypal-button large" rel="#{explanation.email}") Пожертвовать
+                    a(class="paypal-button large" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=#{explanation.email}&lc=RU&item_name=#{explanation.email}&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest" class="paypal-button large" rel="#{explanation.email}" target="_blank" onclick="window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=m0rg0t%2eAnton%40gmail%2ecom&lc=RU&item_name=m0rg0t%2eAnton%40gmail%2ecom&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest','_self',false); return true;") Пожертвовать
+                    //.donate_author
+                      script(src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=#{explanation.email}" data-button="donate" data-name="Author support" data-amount="0.50" async)
+                    //.donate_project
+                      script(src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=m0rg0t.Anton@gmail.com" data-button="donate" data-name="Project support" data-amount="0.50" async)
+
+              div
+                !=explanation.text
+              hr
+          else
+            p Нет объяснений для места
+          button(id="add_comment" class="btn btn-primary") Добавить объяснение
+
+          //script.
+            $(".paypal-button").click(function() {
+              var email = $(this).attr("rel");
+              //email = "test@example.com";
+              window.open("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=m0rg0t%2eAnton%40gmail%2ecom&lc=RU&item_name=m0rg0t%2eAnton%40gmail%2ecom&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest", "_blank");
+              function func() {
+                window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business='+email+'&lc=RU&item_name='+email+'&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest', '_blank');
+              }
+              setTimeout(func, 2000);              
+            });
+
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading Комментарии
+        .panel-body
+          include disqus.html
+
+
+  .row
+    .col-md-12
+      .panel.panel-default
+        .panel-heading Контракты
+        .panel-body
+          div(id="contracts") Hello world
+          - if (typeof(result) != null)
+            != "<script type='text/javascript'>"
+            != "jQuery(document).ready(function() {"
+            != "initContracts(" + result.kpp + ", " + result.inn + ");"
+            != "});"
+            != "</script>"
+          script.
+            function initContracts(kpp, inn) {
+              jQuery.get( "/api/contracts/"+kpp+"/"+inn, function( data ) {
+                console.log(data);
+                jQuery("#contracts").html("");
+                var contracts = data.contracts.contracts.data;
+                for (var i=0; i<contracts.length; ++i) {
+                  var item = contracts[i];
+                  jQuery("#contracts").append("<span><b>Цена:</b> "+ item.price + " рублей</span></br>" + "<span><b>Номер: <a href='http://clearspending.ru/contract/"+item.regNum+"'>"+item.regNum +"</a><hr>");
+                }
+              });
+            }

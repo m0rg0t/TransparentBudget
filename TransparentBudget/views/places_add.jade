@@ -3,17 +3,53 @@
 block content
   h1 #{title}
   div(class="well bs-component")
-    form(class="form-horizontal" method="POST")
+    form(class="form-horizontal" method="POST" action="/places/add")
       fieldset
-        legend Название места
+        legend Добавление нового места
         div(class="form-group")          
           label(for="title" class="col-lg-2 control-label") Название места
           div(class="col-lg-10")
             input(type='text' name='title' id='title', placeholder='Место' class='form-control')
-        legend Описание места
+
+        div(class="form-group")          
+          label(for="title" class="col-lg-2 control-label") Адрес места
+          div(class="col-lg-10")
+            input(type='text' name='address' id='address', placeholder='Адрес места' class='form-control')
+
+        div(class="form-group")          
+          label(for="title" class="col-lg-2 control-label") Широта
+          div(class="col-lg-10")
+            input(type='text' name='lat' id='lat', placeholder='33' class='form-control')
+
+        div(class="form-group")          
+          label(for="title" class="col-lg-2 control-label") Долгота
+          div(class="col-lg-10")
+            input(type='text' name='lon' id='lon', placeholder='33' class='form-control')
+
         div(class="form-group")          
           label(for="description" class="col-lg-2 control-label") Описание места
           div(class="col-lg-10")
             textarea(name='description', id='description' class='form-control')
+
+        div(class="form-group")
+          label(for="selectMap" class="col-lg-12 control-label") Место объекта
+          div(id="selectMap")
+
         button(class="btn btn-default") Отмена
         button(type="submit" class="btn btn-primary") Добавить
+
+
+  script.
+      ymaps.ready(init);
+        var myMap,
+            myPlacemark;
+
+        function init() {   
+            myMap = new ymaps.Map ("selectMap", {
+                center: [55.76, 37.64],
+                zoom: 7
+            });
+
+            var placemark = new ymaps.Placemark([55, 37], { content: "Добавляемый объект", balloonContent: "Добавляемый объект" });
+            myMap.geoObjects.add(placemark);   
+        }
