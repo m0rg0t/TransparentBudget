@@ -121,6 +121,10 @@ app.get('/login', function (req, res) {
     res.render('login', { title: 'Вход', year: new Date().getFullYear() });
 });
 
+app.get('/register', function (req, res) {
+    res.render('register', { title: 'Регистрация', year: new Date().getFullYear() });
+});
+
 app.get('/logout', function (req, res) {
     res.render('logout', { title: 'Выход', year: new Date().getFullYear() });
 });
@@ -138,6 +142,14 @@ app.post('/login',
         failureRedirect: '/login',
         failureFlash: true
     })
+);
+
+app.post('/register',
+    passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/register',
+    failureFlash: true
+})
 );
 
 /*passport.use(new DigestStrategy({ qop: 'auth' },

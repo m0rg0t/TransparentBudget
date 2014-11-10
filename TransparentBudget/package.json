@@ -1,0 +1,22 @@
+{
+  "name": "TransparentBudget",
+  "version": "0.0.0",
+  "description": "TransparentBudget",
+  "main": "app.js",
+  "author": {
+    "name": "Anton Lenev",
+    "email": "m0rg0t.Anton@gmail.com"
+  },
+  "dependencies": {
+    "express": "3.4.4",
+    "jade": "*",
+    "stylus": "*",
+    "mongoose":  "*",
+    "mongodb":  "*",
+    "unirest":  "*",
+    "passport":  "*",
+    "passport-http":  "*",
+    "passport-local":  "*",
+    "paypal-rest-sdk":  "*"
+  }
+}

@@ -95,6 +95,7 @@
     <Content Include="views\about.jade" />
     <Content Include="views\index.jade" />
     <Content Include="views\layout.jade" />
+    <Content Include="views\register.jade" />
     <Content Include="views\texts\about_description.html" />
     <Content Include="views\user.jade" />
     <Content Include="Web.config" />
