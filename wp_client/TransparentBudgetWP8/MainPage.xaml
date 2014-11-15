@@ -1,0 +1,115 @@
+﻿<phone:PhoneApplicationPage
+    x:Class="TransparentBudgetWP8.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DataContext="{d:DesignData SampleData/MainViewModelSampleData.xaml}"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    DataContext="{Binding Main, Source={StaticResource Locator}}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait"  Orientation="Portrait"
+    shell:SystemTray.IsVisible="False">
+
+  <!--LayoutRoot представляет корневую сетку, где размещается все содержимое страницы-->
+  <Grid x:Name="LayoutRoot" Background="Transparent">
+
+    <!-- ПРИМЕЧАНИЕ О ЛОКАЛИЗАЦИИ:
+            Чтобы локализовать отображаемые строки, скопируйте их значения в соответствующим образом названные
+            ключи в файле ресурсов нейтрального языка приложения (AppResources.resx), а затем
+            замените жестко заданное текстовое значение между кавычками атрибутов
+            на выражение привязки, указывающее на имя соответствующей строки.
+
+            Пример:
+
+                Text="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}"
+
+            Данная привязка указывает на строковый ресурс шаблона с именем "ApplicationTitle".
+
+            Добавление поддерживаемых языков на вкладку "Свойства проекта" создает
+            новый RESX-файл для каждого языка, в котором могут храниться переведенные значения
+            строк пользовательского интерфейса. Привязка в этих примерах вызывает отрисовку
+            значений атрибутов из RESX-файла, соответствующего
+            CurrentUICulture приложения во время выполнения.
+         -->
+
+    <!--Элемент управления Panorama-->
+    <phone:Panorama>
+      <phone:Panorama.Title>
+        <TextBlock Text="Прозрачный бюджет"
+                   Margin="10,20,0,0"
+                   FontSize="90"/>
+      </phone:Panorama.Title>
+      <!--<phone:Panorama.Background>
+        <ImageBrush ImageSource="/TransparentBudgetWP8;component/Assets/PanoramaBackground.png"/>
+      </phone:Panorama.Background>-->
+
+      <!--Первый элемент Panorama-->
+      <phone:PanoramaItem>
+        <phone:PanoramaItem.Header>
+          <Border  Margin="-12,0,0,0">
+            <TextBlock Text="Места" FontSize="60"
+                       Margin="15,0,0,0"/>
+          </Border>
+        </phone:PanoramaItem.Header>
+        <!--Однострочный список с разбивкой текста на строки-->
+        <phone:LongListSelector Margin="0,0,-22,0" ItemsSource="{Binding Items}">
+          <phone:LongListSelector.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Margin="0,-6,0,12">
+                <TextBlock Text="{Binding Title}" TextWrapping="Wrap" 
+                           Style="{StaticResource PhoneTextLargeStyle}" 
+                           FontSize="{StaticResource PhoneFontSizeLarge}"/>
+                <TextBlock Text="{Binding ShortDescription}"></TextBlock>
+              </StackPanel>
+            </DataTemplate>
+          </phone:LongListSelector.ItemTemplate>
+        </phone:LongListSelector>
+      </phone:PanoramaItem>
+
+      <!--Второй элемент Panorama-->
+      <phone:PanoramaItem>
+        <phone:PanoramaItem.Header>
+          <Border  Margin="-12,0,0,0">
+            <TextBlock Text="О проекте" FontSize="60"
+                       Margin="15,0,0,0"/>
+          </Border>
+        </phone:PanoramaItem.Header>
+        <!--Двухстрочный список с заполнителем изображения и разбивкой текста на строки на базе плавающего заголовка, в котором проматывается содержимое-->
+        <StackPanel>
+          <ScrollViewer>
+            <TextBlock Text="Проект позволяет получить данные о расходах государственных учреждений и предоставляет возможность оценить их эффективность. Авторизованные пользователи могут добавлять как и само учреждение, отсутствующие в списке по каким-либо причинам, так и описание по эффективности и назначению закупок. В итоге приложение будет выдавать рейтинг наиболее эффективных, наилучшим по качеству государственным учреждениями. В свою очередь, пользователь приложения, посчитав информацию полезной может в знак благодарности перечислить деньги автору через PayPal. В дополнении, автор по своему усмотрению может добавлять законы и инструкции с их пояснением. Таким образом, проект решает вопрос общественного контроля и основан на принципе краунфандинга и саморегулирования." TextWrapping="Wrap"></TextBlock>
+          </ScrollViewer>
+        </StackPanel>
+      </phone:PanoramaItem>
+
+      <!--Третий элемент Panorama-->
+      <phone:PanoramaItem>
+        <phone:PanoramaItem.Header>
+          <Border  Margin="-12,0,0,0">
+            <TextBlock Text="Контакты" FontSize="60"
+                       Margin="15,0,0,0"/>
+          </Border>
+        </phone:PanoramaItem.Header>
+        <!--Элемент Panorama двойной ширины с большими заполнителями изображений-->
+        <StackPanel>
+          <HyperlinkButton TargetName="_blank" Content="m0rg0t.Anton@gmail.com" NavigateUri="mail:m0rg0t.Anton@gmail.com"></HyperlinkButton>
+          <HyperlinkButton TargetName="_blank" Content="transparentbudget" NavigateUri="http://transparentbudget.azurewebsites.net"></HyperlinkButton>
+        </StackPanel>
+      </phone:PanoramaItem>
+    </phone:Panorama>
+
+    <!--Раскомментируйте, чтобы увидеть сетку выравнивания и выровнять
+            элементы управления по общим границам.  Верхнее поле изображения равно -32 пикселя, чтобы
+            осталось место для области уведомлений. Установите его равным 0 (или вообще удалите поле),
+            если область уведомлений скрыта.
+
+            Перед сдачей приложения удалите этот код XAML и само изображение.-->
+    <!--<Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" />-->
+
+  </Grid>
+</phone:PhoneApplicationPage>
