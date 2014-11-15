@@ -104,19 +104,17 @@ block content
                     else
                       span
                         b Контракт
-                        span explanation.contract
+                        &nbsp; &nbsp;
+                        span #{explanation.contract}
                     br
                     span
                       b Author
                       a(href="/profile/#{explanation.authorId}") 
                           =explanation.author
-                  td(class="donate")
-                    //button(class="paypal-button large" rel="#{explanation.email}") Пожертвовать
-                    a(class="paypal-button large" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=#{explanation.email}&lc=RU&item_name=#{explanation.email}&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest" class="paypal-button large" rel="#{explanation.email}" target="_blank" onclick="window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=m0rg0t%2eAnton%40gmail%2ecom&lc=RU&item_name=m0rg0t%2eAnton%40gmail%2ecom&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest','_self',false); return true;") Пожертвовать
-                    //.donate_author
-                      script(src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=#{explanation.email}" data-button="donate" data-name="Author support" data-amount="0.50" async)
-                    //.donate_project
-                      script(src="https://www.paypalobjects.com/js/external/paypal-button.min.js?merchant=m0rg0t.Anton@gmail.com" data-button="donate" data-name="Project support" data-amount="0.50" async)
+                  td(class="donate" style="text-align: right;")
+                    if explanation.email!==null
+                      //button(class="paypal-button large" rel="#{explanation.email}") Пожертвовать
+                      a(class="paypal-button large" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=#{explanation.email}&lc=RU&item_name=#{explanation.email}&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest" class="paypal-button large" rel="#{explanation.email}" target="_blank" onclick="window.open('https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=m0rg0t%2eAnton%40gmail%2ecom&lc=RU&item_name=m0rg0t%2eAnton%40gmail%2ecom&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest','_self',false); return true;") Пожертвовать
 
               div
                 !=explanation.text
@@ -125,7 +123,7 @@ block content
             p Нет объяснений для места
           
           div(class="well bs-component")
-            form(class="form-horizontal" method="POST" action="/places/explanations/add")
+            form(class="form-horizontal" method="POST" id="explanationForm" action="/places/explanations/add")
               fieldset
                 legend Добавление нового объяснение
                 div(class="form-group")          
@@ -138,8 +136,68 @@ block content
                   div(class="col-lg-10")
                     textarea(name='text', id='text' class='form-control' required="required")
                 input(type="hidden" value="#{place.id}" name="placeId")
-                button(type="submit" class="btn btn-primary") Добавить
-                //button(type="clear" class="btn btn-primary") Очистить
+                input(type="submit" class="btn btn-primary" value="Добавить")
+                input(type="reset" class="btn btn-primary" value="Очистить")
+                script.
+                    // prepare the form when the DOM is ready 
+                    $(document).ready(function() { 
+                        var options = { 
+                            //target:        '#explanationFormOutput',   // target element(s) to be updated with server response 
+                            beforeSubmit:  showRequest,  // pre-submit callback 
+                            success:       showResponse  // post-submit callback 
+ 
+                            // other available options: 
+                            //url:       url         // override for form's 'action' attribute 
+                            //type:      type        // 'get' or 'post', override for form's 'method' attribute 
+                            //dataType:  null        // 'xml', 'script', or 'json' (expected server response type) 
+                            //clearForm: true        // clear all form fields after successful submit 
+                            //resetForm: true        // reset the form after successful submit 
+ 
+                            // $.ajax options can be used here too, for example: 
+                            //timeout:   3000 
+                        }; 
+ 
+                        // bind to the form's submit event 
+                        $('#explanationForm').submit(function() { 
+                            //console.log("explanationForm");
+                            // inside event callbacks 'this' is the DOM element so we first 
+                            // wrap it in a jQuery object and then invoke ajaxSubmit 
+                            try {
+                                $(this).ajaxSubmit(options); 
+                            } catch(ex) { console.log(ex); }
+ 
+                            // !!! Important !!! 
+                            // always return false to prevent standard browser submit and page navigation 
+                            return false; 
+                        }); 
+                    }); 
+ 
+                    // pre-submit callback 
+                    function showRequest(formData, jqForm, options) { 
+                        // formData is an array; here we use $.param to convert it to a string to display it 
+                        // but the form plugin does this for you automatically when it submits the data 
+                        var queryString = $.param(formData); 
+ 
+                        // jqForm is a jQuery object encapsulating the form element.  To access the 
+                        // DOM element for the form do this: 
+                        // var formElement = jqForm[0]; 
+ 
+                        //alert('About to submit: \n\n' + queryString); 
+ 
+                        // here we could return false to prevent the form from being submitted; 
+                        // returning anything other than false will allow the form submit to continue 
+                        return true; 
+                    } 
+ 
+                    // post-submit callback 
+                    function showResponse(responseText, statusText, xhr, $form)  {                         
+                        try {
+                            $('#explanationForm')[0].reset();
+                        } catch(ex) { }
+                        //alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + '\n\nThe output div should have already been updated with the responseText.'); 
+                        console.log(responseText);
+                        alert("Ваше объяснение добавлено");
+                    } 
 
           //script
             $(".paypal-button").click(function() {

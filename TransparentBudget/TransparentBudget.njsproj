@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="app.js" />
+    <Compile Include="public\javascripts\jquery.form.js" />
     <Compile Include="public\javascripts\jquery.nivo.slider.pack.js" />
     <Compile Include="routes\index.js" />
   </ItemGroup>
