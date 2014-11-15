@@ -265,6 +265,8 @@ app.get('/places_add', function (req, res) {
     res.render('places_add', { title: "Добавить место", year: new Date().getFullYear(), message: 'Добавление места', user: req.user });
 });
 
+
+
 var place_post_add = function (req, res) {
     var author = "Guest";
     var userId = null;
@@ -299,7 +301,38 @@ var place_post_add = function (req, res) {
     });
 }
 
+//add new explanation for place
+var place_explanation_post_add = function (req, res) {
+    var author = "Guest";
+    var userId = null;
+    var email = null;
+    if ((req.user !== null) && (req.user !== undefined)) {
+        author = req.user.username;
+        userId = req.user.id;
+        email = req.user.email;
+    }
+    var placeId = req.body.placeId;
+
+    var item = {};
+    item.author = author;
+    item.authorId = userId;
+    item.text = req.body.text;
+    item.email = email;
+    item.contract = req.body.contract;
+
+    PlaceObjectModel.update({ _id: placeId }, { $push: { explanations: item } }, { upsert: true }, function (err) {
+        if (err) {
+            console.log(err);
+            return res.error(err.message);
+        } else {
+            return res.send({ status: 'OK', explanation: item });
+            console.log("Successfully added");
+        }
+    });
+}
+
 app.post('/places/add', place_post_add);
+app.post('/places/explanations/add', place_explanation_post_add);
 
 app.get('/api/places', function (req, res) {
     return PlaceObjectModel.find(function (err, places) {

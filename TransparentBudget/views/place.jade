@@ -123,9 +123,25 @@ block content
               hr
           else
             p Нет объяснений для места
-          button(id="add_comment" class="btn btn-primary") Добавить объяснение
+          
+          div(class="well bs-component")
+            form(class="form-horizontal" method="POST" action="/places/explanations/add")
+              fieldset
+                legend Добавление нового объяснение
+                div(class="form-group")          
+                  label(for="title" class="col-lg-2 control-label") Ссылка на информацию (конракт, бюджет, др.)
+                  div(class="col-lg-10")
+                    input(type='text' name='contract' id='contract', placeholder='' class='form-control' required="required")
 
-          //script.
+                div(class="form-group")          
+                  label(for="text" class="col-lg-2 control-label") Описание места
+                  div(class="col-lg-10")
+                    textarea(name='text', id='text' class='form-control' required="required")
+                input(type="hidden" value="#{place.id}" name="placeId")
+                button(type="submit" class="btn btn-primary") Добавить
+                //button(type="clear" class="btn btn-primary") Очистить
+
+          //script
             $(".paypal-button").click(function() {
               var email = $(this).attr("rel");
               //email = "test@example.com";
