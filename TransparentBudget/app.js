@@ -174,6 +174,7 @@ if ('development' == app.get('env')) {
 app.get('/', routes.index);
 app.get('/about', routes.about);
 app.get('/contact', routes.contact);
+app.get('/wp', routes.wp);
 //get place list
 app.get('/places', function (req, res) {
     PlaceObjectModel.find(function (err, places) {

@@ -15,6 +15,10 @@ exports.contact = function (req, res) {
     res.render('contact', { title: 'Контакты', year: new Date().getFullYear(), message: 'Your contact page.', user: req.user });
 };
 
+exports.wp = function (req, res) {
+    res.render('wp', { title: 'Windows Phone 8 клиент', year: new Date().getFullYear(), user: req.user });
+};
+
 exports.places = function (req, res) {
     res.render('places', { title: 'Места', year: new Date().getFullYear(), message: 'Your places page.', user: req.user });
 };

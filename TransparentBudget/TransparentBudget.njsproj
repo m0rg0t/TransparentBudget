@@ -37,11 +37,15 @@
     <Compile Include="routes\index.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="public\files\TransparentBudgetWP8.xap" />
     <Content Include="public\images\anton1.jpg" />
     <Content Include="public\images\khristina1.jpg" />
     <Content Include="public\images\slide1 %281%29.jpg" />
     <Content Include="public\images\slide1 %282%29.jpg" />
     <Content Include="public\images\slide1 %283%29.jpg" />
+    <Content Include="public\images\wp\wp1.png" />
+    <Content Include="public\images\wp\wp2.png" />
+    <Content Include="public\images\wp\wp3.png" />
     <Content Include="public\javascripts\bootstrap.js" />
     <Content Include="public\javascripts\bootstrap.min.js" />
     <Content Include="public\javascripts\jquery-1.10.2.intellisense.js" />
@@ -99,6 +103,7 @@
     <Content Include="views\register.jade" />
     <Content Include="views\texts\about_description.html" />
     <Content Include="views\user.jade" />
+    <Content Include="views\wp.jade" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config" />
     <Content Include="bin\ChangeConfig.ps1" />
@@ -112,7 +117,9 @@
     <Folder Include="public\" />
     <Folder Include="public\fonts\" />
     <Folder Include="public\images\" />
+    <Folder Include="public\images\wp\" />
     <Folder Include="public\javascripts\" />
+    <Folder Include="public\files\" />
     <Folder Include="public\stylesheets\" />
     <Folder Include="public\stylesheets\themes\" />
     <Folder Include="public\stylesheets\themes\bar\" />
