@@ -28,7 +28,7 @@ namespace TransparentBudgetWP8.Models
             get { return _description; }
             set
             {
-                _description = HtmlRemoval.StripTagsRegex(value);
+                _description = HtmlRemoval.StripTagsRegex(value ?? string.Empty);
                 RaisePropertyChanged("Description");
                 RaisePropertyChanged("ShortDescription");
             }
@@ -40,14 +40,11 @@ namespace TransparentBudgetWP8.Models
         {
             get
             {
-                try
-                {
-                    return Description.Substring(0, 255) + "...";
-                }
-                catch
+                if (Description == null || Description.Length <= 255)
                 {
                     return Description;
                 }
+                return Description.Substring(0, 255) + "...";
             }
             private set { _shortDescription = value; }
         }
@@ -103,3 +100,4 @@ namespace TransparentBudgetWP8.Models
         
     }
 }
+
