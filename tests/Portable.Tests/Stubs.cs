@@ -1,0 +1,1 @@
+namespace GalaSoft.MvvmLight { public class ViewModelBase { public readonly System.Collections.Generic.List<string> Changed=new System.Collections.Generic.List<string>(); protected void RaisePropertyChanged(string s) {Changed.Add(s);} } }
